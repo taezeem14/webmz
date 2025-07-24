@@ -39,7 +39,7 @@ Built to be clean, fast, responsive — with zero frameworks and 100% pure Taeze
 
 ## 🚀 Live Demo
 
-📍 **[Open Webmzn Live](https://taezeem14.github.io/webmz)**  
+📍 **[Open Webmz Live](https://taezeem14.github.io/webmz)**  
 _Instantly view all active GitHub pages in a single clean dashboard_
 
 ---
