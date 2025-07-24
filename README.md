@@ -1,11 +1,11 @@
-# 🧠 Webmzn - Project Dashboard (v1)
+# 🧠 Webmz - Project Dashboard (v1)
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/taezeem14/webmzn?style=social)
 ![GitHub last commit](https://img.shields.io/github/last-commit/taezeem14/webmzn)
 ![GitHub repo size](https://img.shields.io/github/repo-size/taezeem14/webmzn)
 ![MIT License](https://img.shields.io/github/license/taezeem14/webmzn)
 
-**Webmzn** is a sleek and minimal dashboard that automatically fetches and displays all my GitHub repositories in one place.  
+**Webmz** is a sleek and minimal dashboard that automatically fetches and displays all my GitHub repositories in one place.  
 Built to be clean, fast, responsive — with zero frameworks and 100% pure Taezeem energy.
 
 > 🔁 Formerly known as `Webman`.
@@ -55,7 +55,7 @@ _Instantly view all active GitHub pages in a single clean dashboard_
 **Muhammad Taezeem Tariq Matta**  
 - 📍 Grade 7, SRM Welkin Higher Secondary School Sopore  
 - 💻 Coder • Ethical Hacker • Web Architect  
-- 🌐 [taezeem.me](https://taezeem.me)
+- 🌐 [taezeem.me](https://taezeem.me/website.html)
 
 ---
 
