@@ -46,7 +46,7 @@ _Instantly view all active GitHub pages in a single clean dashboard_
 
 ## 📸 Preview
 
-<img src="https://github.com/taezeem14/webmz/preview.png" alt="Webmzn Screenshot" width="800" />
+<img src="/images/preview.png" alt="Webmz Screenshot" width="800" />
 
 ---
 
