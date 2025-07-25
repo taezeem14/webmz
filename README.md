@@ -1,9 +1,9 @@
 # 🧠 Webmz - Project Dashboard (v1)
 
-![GitHub Repo stars](https://img.shields.io/github/stars/taezeem14/webmzn?style=social)
-![GitHub last commit](https://img.shields.io/github/last-commit/taezeem14/webmzn)
-![GitHub repo size](https://img.shields.io/github/repo-size/taezeem14/webmzn)
-![MIT License](https://img.shields.io/github/license/taezeem14/webmzn)
+![GitHub Repo stars](https://img.shields.io/github/stars/taezeem14/webmz?style=social)
+![GitHub last commit](https://img.shields.io/github/last-commit/taezeem14/webmz)
+![GitHub repo size](https://img.shields.io/github/repo-size/taezeem14/webmz)
+![MIT License](https://img.shields.io/github/license/taezeem14/webmz)
 
 **Webmz** is a sleek and minimal dashboard that automatically fetches and displays all my GitHub repositories in one place.  
 Built to be clean, fast, responsive — with zero frameworks and 100% pure Taezeem energy.
