@@ -96,60 +96,61 @@
   <div id="repoList" class="repo-grid">Loading...</div>
 
   <script>
-    const username = "taezeem14";
-    const container = document.getElementById("repoList");
+  const username = "taezeem14";
+  const container = document.getElementById("repoList");
 
-    fetch(`https://api.github.com/users/${username}/repos`)
-  .then(res => res.json())
-  .then(data => {
-    container.innerHTML = "";
+  fetch(`https://api.github.com/users/${username}/repos`)
+    .then(res => res.json())
+    .then(data => {
+      container.innerHTML = "";
 
-    // 🔥 Only repos with GitHub Pages deployed
-    const filtered = data.filter(repo => !repo.fork && repo.has_pages);
+      // 🔥 Only repos with GitHub Pages deployed
+      const filtered = data.filter(repo => !repo.fork && repo.has_pages);
 
-    // 🧯 Show newest last
-    filtered.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
+      // 🧯 Show newest last
+      filtered.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
 
-    filtered.forEach(repo => {
-      const div = document.createElement("div");
-      div.className = "repo";
+      filtered.forEach(repo => {
+        // 🛑 Skip the dashboard repo itself
+        if (repo.name === "webmz") return;
 
-      const link = document.createElement("a");
-      link.href = `https://${username}.github.io/${repo.name}`;
-      link.target = "_blank";
-      link.textContent = `🔗 ${repo.name}`;
+        const div = document.createElement("div");
+        div.className = "repo";
 
-      const updated = document.createElement("div");
-      updated.className = "updated";
-      updated.textContent = `Updated: ${new Date(repo.updated_at).toLocaleDateString()}`;
+        const link = document.createElement("a");
+        link.href = `https://${username}.github.io/${repo.name}`;
+        link.target = "_blank";
+        link.textContent = `🔗 ${repo.name}`;
 
-      div.appendChild(link);
-      div.appendChild(updated);
+        const updated = document.createElement("div");
+        updated.className = "updated";
+        updated.textContent = `Updated: ${new Date(repo.updated_at).toLocaleDateString()}`;
 
-      container.appendChild(div);
+        div.appendChild(link);
+        div.appendChild(updated);
+
+        container.appendChild(div);
+      });
+    })
+    .catch(err => {
+      container.innerHTML = "⚠️ Error loading repos";
+      console.error(err);
     });
-  })
 
-  .catch(err => {
-    container.innerHTML = "⚠️ Error loading repos";
-    console.error(err);
-  });
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme");
+    const newTheme = current === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  }
 
-
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute("data-theme");
-      const newTheme = current === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
+  (function () {
+    const saved = localStorage.getItem("theme");
+    if (saved) {
+      document.documentElement.setAttribute("data-theme", saved);
     }
-
-    (function () {
-      const saved = localStorage.getItem("theme");
-      if (saved) {
-        document.documentElement.setAttribute("data-theme", saved);
-      }
-    })();
-  </script>
+  })();
+</script>
 <footer style="
   margin-top: 2rem;
   padding: 0.5rem 0;
