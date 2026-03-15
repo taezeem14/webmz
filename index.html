@@ -1,166 +1,1038 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Taezeem's Dashboard</title>
-  <style>
-    :root {
-      --bg: #0f0f0f;
-      --fg: #fff;
-      --accent: #00ffe1;
-      --card: #1b1b1b;
-      --hover: #292929;
-    }
-    [data-theme="light"] {
-      --bg: #f0f0f0;
-      --fg: #111;
-      --accent: #0080ff;
-      --card: #ffffff;
-      --hover: #e6e6e6;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taezeem14 - Developer Portfolio</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://api.iconify.design/fa6-solid:code.svg?color=%2300f0ff" type="image/svg+xml">
+    <!-- Use Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Theme Colors conforming to the screenshot */
+            --bg: #090b10;
+            --fg: #f1f5f9;
+            --cyan: #00f0ff;
+            --purple: #8a2be2;
+            --gradient: linear-gradient(90deg, #00f0ff 0%, #7000ff 100%);
+            
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --card-hover-border: rgba(0, 240, 255, 0.4);
+            
+            --muted: #94a3b8;
+            --skeleton: #1e293b;
+            --shimmer: rgba(255, 255, 255, 0.05);
+            
+            --font-main: 'Poppins', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
 
-    body {
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-      transition: background 0.3s, color 0.3s;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.2rem;
-    }
-    p {
-      margin-bottom: 2rem;
-      color: var(--fg);
-    }
-    .repo-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      width: 100%;
-      max-width: 1200px;
-    }
-    .repo {
-      background: var(--card);
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 1rem;
-      width: 250px;
-      transition: 0.3s;
-      text-align: center;
-    }
-    .repo:hover {
-      background: var(--hover);
-      transform: scale(1.02);
-      box-shadow: 0 0 10px var(--accent);
-    }
-    .repo a {
-      color: var(--accent);
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .updated {
-      font-size: 0.8rem;
-      color: gray;
-      margin-top: 0.5rem;
-    }
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: 2px solid var(--accent);
-      color: var(--accent);
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .theme-toggle:hover {
-      background: var(--accent);
-      color: var(--bg);
-    }
-  </style>
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --fg: #0f172a;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --card-hover-border: rgba(0, 240, 255, 0.8);
+            --muted: #64748b;
+            --skeleton: #e2e8f0;
+            --shimmer: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* Using targeted transitions prevents lag */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Highly Optimized Canvas Background */
+        #c {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            /* Hardware acceleration */
+            transform: translateZ(0); 
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 6%;
+            z-index: 100;
+            background: var(--bg);
+            /* Removed backdrop-filter to drastically improve scroll performance */
+            border-bottom: 1px solid var(--card-border);
+        }
+        
+        .nav-brand {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--fg);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .nav-brand span { color: var(--cyan); }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--fg);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--cyan); }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--fg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+        }
+        .theme-toggle:hover { color: var(--cyan); }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 10% 2rem 10%;
+            z-index: 1;
+        }
+        .greeting {
+            font-family: var(--font-mono);
+            color: var(--cyan);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .typewriter {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: var(--muted);
+        }
+        .typewriter span.typing { color: var(--fg); font-weight: 600; }
+        .cursor {
+            color: var(--cyan);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        .hero-bio {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 3rem; /* Solves "too close to text" issue */
+        }
+        .btn {
+            padding: 0.8rem 2.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+        .btn-glow {
+            border: 2px solid var(--cyan);
+            color: var(--cyan);
+            background: transparent;
+        }
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+        .btn-dark {
+            background: var(--card-bg);
+            color: var(--fg);
+            border: 2px solid var(--card-border);
+        }
+        .btn-dark:hover {
+            border-color: var(--muted);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 5%;
+            position: relative;
+            z-index: 10;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        .section-title span { color: var(--cyan); }
+
+        /* Solid Cards */
+        .solid-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+        }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--cyan);
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+        .profile-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+        .profile-info .login {
+            color: var(--cyan);
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--cyan);
+        }
+        .stat-label {
+            color: var(--muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* GitHub Stats Images Section */
+        .stats-images {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .stats-images img {
+            max-width: 100%;
+            height: auto;
+            background: transparent;
+        }
+        .stats-img-wrapper {
+            flex: 1;
+            min-width: 320px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        .search-box svg {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            width: 18px;
+            height: 18px;
+        }
+        .controls input, .controls select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--fg);
+            font-family: var(--font-main);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .controls input { padding-left: 2.75rem; }
+        .controls input:focus, .controls select:focus {
+            border-color: var(--cyan);
+        }
+        .controls select {
+            width: auto;
+            min-width: 150px;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        /* Repos Grid */
+        .repos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .repo-card {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+        .repo-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .repo-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--card-hover-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .repo-card:hover::before { opacity: 1; }
+        
+        .repo-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--fg);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-family: var(--font-mono);
+            transition: color 0.2s;
+        }
+        .repo-title:hover { color: var(--cyan); }
+        .repo-desc {
+            color: var(--muted);
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+        .repo-meta {
+            display: flex;
+            gap: 1.2rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        .meta-item { display: flex; align-items: center; gap: 0.3rem; }
+        .lang-dot {
+            width: 10px; max-width: 10px; height: 10px; max-height: 10px;
+            border-radius: 50%; display: inline-block;
+        }
+        
+        .repo-actions {
+            display: flex; gap: 0.75rem; margin-top: auto;
+        }
+        .repo-btn {
+            flex: 1; padding: 0.5rem; border-radius: 6px;
+            text-align: center; text-decoration: none;
+            font-size: 0.85rem; font-weight: 500;
+            border: 1px solid var(--card-border);
+            color: var(--fg);
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .repo-btn.primary {
+            background: rgba(0, 240, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.3);
+            color: var(--cyan);
+        }
+        .repo-btn.primary:hover {
+            background: var(--cyan);
+            color: #000;
+        }
+        .repo-btn.secondary:hover {
+            background: var(--card-border);
+        }
+
+        /* Loading Skeletons */
+        @keyframes shimmer {
+            0% { background-position: -400px 0; }
+            100% { background-position: 400px 0; }
+        }
+        .skeleton {
+            background: var(--skeleton);
+            background-image: linear-gradient(90deg, var(--skeleton) 0px, var(--shimmer) 40px, var(--skeleton) 80px);
+            background-size: 400px 100%;
+            animation: shimmer 1.5s infinite linear;
+            border-radius: 4px;
+        }
+        .skeleton-text { height: 1rem; margin-bottom: 0.5rem; width: 100%; }
+        .skeleton-avatar { width: 120px; height: 120px; border-radius: 50%; }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .contact-info p {
+            color: var(--muted);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--cyan);
+            font-size: 1.2rem;
+        }
+        .contact-text h4 {
+            font-size: 1rem;
+            color: var(--fg);
+        }
+        .contact-text span, .contact-text a {
+            font-size: 0.9rem;
+            color: var(--muted);
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+        .contact-text a:hover {
+            color: var(--cyan);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--fg);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            background: var(--cyan);
+            color: #000;
+            border-color: var(--cyan);
+            transform: translateY(-3px);
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 2.5rem;
+        }
+        .form-group {
+            position: relative;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            background: var(--bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--fg);
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .form-btn {
+            margin-top: 10px;
+            width: max-content;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 10%;
+            text-align: center;
+            background: var(--card-bg);
+            border-top: 1px solid var(--card-border);
+            position: relative;
+            z-index: 10;
+        }
+        .footer-text {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        .footer-text span {
+            color: var(--cyan);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 768px) {
+            .contact-container { grid-template-columns: 1fr; gap: 30px; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.8rem; }
+            .profile-section { flex-direction: column; text-align: center; }
+            .stats { justify-content: center; }
+            .controls { flex-direction: column; }
+            .controls select { width: 100%; }
+        }
+    </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
-  <h1>🧠 Taezeem's Dashboard </h1>
-  <p>All of my projects at one place. Simple. Clean. Powerful.</p>
-  <div id="repoList" class="repo-grid">Loading...</div>
 
-  <script>
-  const username = "taezeem14";
-  const container = document.getElementById("repoList");
+    <!-- Lightweight Canvas for Particles -->
+    <canvas id="c"></canvas>
 
-  fetch(`https://api.github.com/users/${username}/repos`)
-    .then(res => res.json())
-    .then(data => {
-      container.innerHTML = "";
+    <nav>
+        <a href="#" class="nav-brand">&lt;Taezeem <span>/</span>&gt;</a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
 
-      // 🔥 Only repos with GitHub Pages deployed
-      const filtered = data.filter(repo => !repo.fork && repo.has_pages);
+    <section class="hero" id="home">
+        <p class="greeting">Hello, World! I am</p>
+        <h1>Muhammad<br>Taezeem<br><span class="gradient-text">Tariq Matta</span></h1>
+        <h2 class="typewriter">I am a <span class="typing"></span><span class="cursor">|</span></h2>
+        <p class="hero-bio">
+          I build digital experiences, explore the depths of cybersecurity, and engineer robust web applications. Passionate about learning new technologies and crafting tools that solve real-world problems.
+        </p>
+        <div class="hero-buttons">
+            <a href="#projects" class="btn btn-glow">VIEW PROJECTS</a>
+            <a href="#contact" class="btn btn-dark">CONTACT ME</a>
+        </div>
+    </section>
 
-      // 🧯 Show newest last
-      filtered.sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at));
+    <div class="container" id="projects">
+        <h2 class="section-title">My <span>Workspace</span></h2>
+        
+        <!-- Profile Setup -->
+        <section id="profile-container" class="profile-section solid-panel">
+            <div class="skeleton skeleton-avatar"></div>
+            <div class="profile-info" style="flex:1">
+                <div class="skeleton skeleton-text" style="width: 40%; height: 2rem;"></div>
+                <div class="skeleton skeleton-text" style="width: 20%;"></div>
+                <div class="skeleton skeleton-text" style="width: 80%; margin-top: 1rem;"></div>
+            </div>
+        </section>
 
-      filtered.forEach(repo => {
-        // 🛑 Skip the dashboard repo itself
-        if (repo.name === "webmz") return;
+        <!-- GitHub Stats -->
+        <section class="stats-images">
+            <div class="stats-img-wrapper solid-panel">
+                <img id="gh-stats-img" loading="lazy" src="https://github-readme-stats-sigma-five.vercel.app/api?username=taezeem14&show_icons=true&hide_border=true&bg_color=00000000&title_color=00f0ff&text_color=f1f5f9&icon_color=8a2be2" alt="GitHub Stats">
+            </div>
+            <div class="stats-img-wrapper solid-panel">
+                <img id="gh-langs-img" loading="lazy" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=taezeem14&layout=compact&hide_border=true&bg_color=00000000&title_color=00f0ff&text_color=f1f5f9" alt="Top Languages">
+            </div>
+        </section>
 
-        const div = document.createElement("div");
-        div.className = "repo";
+        <!-- Controls -->
+        <section class="controls">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="searchInput" placeholder="Search repositories...">
+            </div>
+            <select id="languageFilter">
+                <option value="all">All Languages</option>
+            </select>
+            <select id="sortFilter">
+                <option value="updated">Last Updated</option>
+                <option value="stars">Most Stars</option>
+                <option value="name">Name (A-Z)</option>
+            </select>
+        </section>
 
-        const link = document.createElement("a");
-        link.href = `https://${username}.github.io/${repo.name}`;
-        link.target = "_blank";
-        link.textContent = `🔗 ${repo.name}`;
+        <!-- Repositories -->
+        <div id="error-container"></div>
+        <section id="repos-container" class="repos-grid">
+            <!-- Skeletons -->
+            <div class="repo-card solid-panel"><div class="skeleton skeleton-text" style="height: 1.5rem"></div><div class="skeleton skeleton-text" style="height: 4rem; margin-top: 1rem"></div></div>
+            <div class="repo-card solid-panel"><div class="skeleton skeleton-text" style="height: 1.5rem"></div><div class="skeleton skeleton-text" style="height: 4rem; margin-top: 1rem"></div></div>
+            <div class="repo-card solid-panel"><div class="skeleton skeleton-text" style="height: 1.5rem"></div><div class="skeleton skeleton-text" style="height: 4rem; margin-top: 1rem"></div></div>
+        </section>
 
-        const updated = document.createElement("div");
-        updated.className = "updated";
-        updated.textContent = `Updated: ${new Date(repo.updated_at).toLocaleDateString()}`;
+        <!-- Contact Section -->
+        <section id="contact" style="padding: 2rem 0 5rem 0;">
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p>Whether you have a question, a project proposal, or just want to say hi, my inbox is always open. Let's build something awesome together!</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <a href="mailto:taezeem@taezeem.me">taezeem@taezeem.me</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Location</h4>
+                            <span>Earth, Milky Way</span>
+                        </div>
+                    </div>
 
-        div.appendChild(link);
-        div.appendChild(updated);
+                    <div class="social-links">
+                        <a href="https://github.com/taezeem14/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/muhammad-taezeem-tariq-matta/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://t.me/Taezeem_14" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
 
-        container.appendChild(div);
-      });
-    })
-    .catch(err => {
-      container.innerHTML = "⚠️ Error loading repos";
-      console.error(err);
-    });
+                <form id="contact-form" class="contact-form solid-panel" action="https://formspree.io/f/xnjgzwoa" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-glow form-btn">Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
+                </form>
+            </div>
+        </section>
+    </div>
 
-  function toggleTheme() {
-    const current = document.documentElement.getAttribute("data-theme");
-    const newTheme = current === "light" ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-  }
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">
+            Designed & Built with <i class="fas fa-heart" style="color: #ff3366;"></i> by <span>Muhammad Taezeem Tariq Matta</span>
+        </p>
+        <p class="footer-text" style="margin-top: 10px; font-size: 0.8rem;">
+            &copy; 2026. All rights reserved.
+        </p>
+    </footer>
 
-  (function () {
-    const saved = localStorage.getItem("theme");
-    if (saved) {
-      document.documentElement.setAttribute("data-theme", saved);
-    }
-  })();
-</script>
-<footer style="
-  margin-top: 2rem;
-  padding: 0.5rem 0;
-  width: 100%;
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--fg);
-  border-top: 1px solid #333;
-">
-  © Muhammad Taezeem Tariq Matta · <a href="https://taezeem.me/website.html" style="color: var(--accent); text-decoration: none;" target="_blank">Visit Me</a>
-</footer>
+    <script>
+        // --- HIGH PERFORMANCE CANVAS PARTICLES ---
+        const canvas = document.getElementById('c');
+        const ctx = canvas.getContext('2d', { alpha: false }); 
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * 0.5 + 0.1;
+                this.speedX = (Math.random() - 0.5) * 0.2;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                if (this.y < -10) {
+                    this.y = height + 10;
+                    this.x = Math.random() * width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(0, 240, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            resize();
+            window.addEventListener('resize', resize);
+            particles = [];
+            let particleCount = Math.floor((width * height) / 15000); 
+            if(particleCount > 100) particleCount = 100;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            animateParticles();
+        }
+
+        function animateParticles() {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            ctx.fillStyle = isLight ? '#f8fafc' : '#090b10';
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        // --- TYPEWRITER EFFECT ---
+        const words = ["Cybersec Enthusiast", "Frontend Engineer", "UI/UX Designer", "Problem Solver"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.querySelector('.typing');
+
+        function type() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) charIndex--;
+            else charIndex++;
+
+            typingElement.textContent = currentWord.substring(0, charIndex);
+
+            let typeSpeed = isDeleting ? 40 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+
+        // --- THEME MANAGEMENT ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const sunSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+        const moonSVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+        function updateStatsTheme(theme) {
+            const ghStats = document.getElementById('gh-stats-img');
+            const ghLangs = document.getElementById('gh-langs-img');
+            if (theme === 'light') {
+                if(ghStats) ghStats.src = "https://github-readme-stats-sigma-five.vercel.app/api?username=taezeem14&show_icons=true&hide_border=true&bg_color=00000000&title_color=0284c7&text_color=475569&icon_color=6366f1";
+                if(ghLangs) ghLangs.src = "https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=taezeem14&layout=compact&hide_border=true&bg_color=00000000&title_color=0284c7&text_color=475569";
+            } else {
+                if(ghStats) ghStats.src = "https://github-readme-stats-sigma-five.vercel.app/api?username=taezeem14&show_icons=true&hide_border=true&bg_color=00000000&title_color=00f0ff&text_color=f1f5f9&icon_color=8a2be2";
+                if(ghLangs) ghLangs.src = "https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=taezeem14&layout=compact&hide_border=true&bg_color=00000000&title_color=00f0ff&text_color=f1f5f9";
+            }
+        }
+
+        function setupTheme() {
+            let current = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', current);
+            themeBtn.innerHTML = current === 'dark' ? sunSVG : moonSVG;
+            updateStatsTheme(current);
+
+            themeBtn.addEventListener('click', () => {
+                current = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', current);
+                localStorage.setItem('theme', current);
+                themeBtn.innerHTML = current === 'dark' ? sunSVG : moonSVG;
+                updateStatsTheme(current);
+            });
+        }
+
+        // --- DASHBOARD LOGIC ---
+        const USERNAME = 'taezeem14';
+        const CACHE_KEY = `gh_dashboard_${USERNAME}`;
+        const CACHE_EXPIRY = 2 * 60 * 60 * 1000;
+
+        let allRepos = [];
+        let filteredRepos = [];
+        let languages = new Set();
+        const langColors = {
+            'JavaScript': '#f1e05a', 'TypeScript': '#3178c6', 'HTML': '#e34c26',
+            'CSS': '#563d7c', 'Python': '#3572A5', 'Java': '#b07219',
+            'C++': '#f34b7d', 'Go': '#00ADD8', 'Rust': '#dea584'
+        };
+
+        async function fetchGitHubData() {
+            const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+            if (cached && (Date.now() - cached.timestamp < CACHE_EXPIRY)) return cached.data;
+
+            try {
+                const [profileRes, reposRes] = await Promise.all([
+                    fetch(`https://api.github.com/users/${USERNAME}`),
+                    fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`)
+                ]);
+                if (!profileRes.ok || !reposRes.ok) throw new Error('API Error');
+
+                const profile = await profileRes.json();
+                const repos = await reposRes.json();
+                const pagesRepos = repos.filter(repo => repo.has_pages);
+
+                const data = { profile, repos: pagesRepos };
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data }));
+                return data;
+            } catch (error) {
+                return cached ? cached.data : null;
+            }
+        }
+
+        function renderProfile(profile) {
+            if (!profile) return;
+            document.getElementById('profile-container').innerHTML = `
+                <img src="${profile.avatar_url}" alt="Avatar" class="avatar">
+                <div class="profile-info">
+                    <h3>${profile.name || profile.login}</h3>
+                    <a href="${profile.html_url}" target="_blank" class="login">@${profile.login}</a>
+                    <div class="stats">
+                        <div class="stat-item"><span class="stat-value">${profile.followers}</span><span class="stat-label">Followers</span></div>
+                        <div class="stat-item"><span class="stat-value">${profile.following}</span><span class="stat-label">Following</span></div>
+                        <div class="stat-item"><span class="stat-value">${profile.public_repos}</span><span class="stat-label">Repos</span></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderRepos(repos) {
+            const container = document.getElementById('repos-container');
+            container.innerHTML = '';
+            if (repos.length === 0) {
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 2rem;">No matching repositories found.</div>`;
+                return;
+            }
+
+            repos.forEach(repo => {
+                const date = new Date(repo.updated_at).toLocaleDateString();
+                const langColor = langColors[repo.language] || '#aaaaaa';
+                const homepage = repo.homepage || `https://${USERNAME}.github.io/${repo.name}`;
+                if(repo.language) languages.add(repo.language);
+
+                const card = document.createElement('div');
+                card.className = 'repo-card solid-panel';
+                card.innerHTML = `
+                    <a href="${repo.html_url}" target="_blank" class="repo-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 19a2 2 0 0 1 2-2h4l2-3h8a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-10z"></path></svg>
+                        ${repo.name}
+                    </a>
+                    <p class="repo-desc">${repo.description || 'No description provided.'}</p>
+                    <div class="repo-meta">
+                        ${repo.language ? `<div class="meta-item"><span class="lang-dot" style="background:${langColor}"></span>${repo.language}</div>` : ''}
+                        <div class="meta-item">🌟 ${repo.stargazers_count}</div>
+                        <div class="meta-item">🍴 ${repo.forks_count}</div>
+                        <div style="margin-left: auto">${date}</div>
+                    </div>
+                    <div class="repo-actions">
+                        <a href="${homepage}" target="_blank" class="repo-btn primary">Visit Site</a>
+                        <a href="${repo.html_url}" target="_blank" class="repo-btn secondary">Source</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            updateLangSelect();
+        }
+
+        function updateLangSelect() {
+            const select = document.getElementById('languageFilter');
+            while (select.options.length > 1) select.remove(1);
+            Array.from(languages).sort().forEach(lang => {
+                const opt = document.createElement('option');
+                opt.value = lang;
+                opt.textContent = lang;
+                select.appendChild(opt);
+            });
+        }
+
+        function applyFilters() {
+            const s = document.getElementById('searchInput').value.toLowerCase();
+            const l = document.getElementById('languageFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+
+            filteredRepos = allRepos.filter(r => 
+                (r.name.toLowerCase().includes(s) || (r.description && r.description.toLowerCase().includes(s))) &&
+                (l === 'all' || r.language === l)
+            ).sort((a, b) => {
+                if (sort === 'stars') return b.stargazers_count - a.stargazers_count;
+                if (sort === 'name') return a.name.localeCompare(b.name);
+                return new Date(b.updated_at) - new Date(a.updated_at);
+            });
+            renderRepos(filteredRepos);
+        }
+
+        async function init() {
+            setupTheme();
+            initParticles();
+            type();
+            
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('languageFilter').addEventListener('change', applyFilters);
+            document.getElementById('sortFilter').addEventListener('change', applyFilters);
+
+            const data = await fetchGitHubData();
+            if (data) {
+                allRepos = data.repos;
+                renderProfile(data.profile);
+                applyFilters();
+            } else {
+                document.getElementById('error-container').innerHTML = '<span style="color:#ef4444;">Failed to load GitHub data.</span>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        // --- FORMSPREE AJAX SUBMISSION ---
+        const contactForm = document.getElementById('contact-form');
+        const formBtn = contactForm.querySelector('.form-btn');
+        
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const originalBtnText = formBtn.textContent;
+            formBtn.textContent = 'Sending...';
+            formBtn.disabled = true;
+
+            const data = new FormData(contactForm);
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    formBtn.textContent = 'Sent Successfully!';
+                    formBtn.style.color = '#10b981';
+                    formBtn.style.borderColor = '#10b981';
+                    contactForm.reset();
+                    
+                    setTimeout(() => {
+                        formBtn.textContent = originalBtnText;
+                        formBtn.style.color = '';
+                        formBtn.style.borderColor = '';
+                        formBtn.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error('Network response error');
+                }
+            } catch (error) {
+                formBtn.textContent = 'Error Sending';
+                formBtn.style.color = '#ef4444';
+                formBtn.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    formBtn.textContent = originalBtnText;
+                    formBtn.style.color = '';
+                    formBtn.style.borderColor = '';
+                    formBtn.disabled = false;
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>

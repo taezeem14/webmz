@@ -5,8 +5,8 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/taezeem14/webmz)
 ![MIT License](https://img.shields.io/github/license/taezeem14/webmz)
 
-**Webmz** is a sleek and minimal dashboard that automatically fetches and displays all my GitHub repositories in one place.  
-Built to be clean, fast, responsive — with zero frameworks and 100% pure Taezeem energy.
+**Webmz** is a sleek, high-performance developer portfolio and dashboard that automatically fetches and displays all my GitHub repositories in one place.  
+Built to be clean, fast, responsive — with a hardware-accelerated background and 100% pure Taezeem energy.
 
 > 🔁 Formerly known as `Webman`.
 
@@ -14,11 +14,14 @@ Built to be clean, fast, responsive — with zero frameworks and 100% pure Taeze
 
 ## ⚡ Features
 
+- 🎨 **Interactive UI** – 60FPS HTML5 Canvas particle background
+- 📊 **GitHub Stats** – Live GitHub Readme Stats and Top Languages integration
 - 🔄 **Auto updates** with GitHub API (no need to manually add repos)
-- 🌗 **Dark/Light theme toggle**  
+- 📧 **Contact Section** – AJAX-powered redirectless form using Formspree
+- 🌗 **Dark/Light theme toggle** – Seamlessly switches UI and stat cards 
 - 🚫 **Excludes forks** – only original projects shown  
-- 🖼️ **Simple card grid** with clean links  
-- 🧠 **No dependencies** – pure HTML, CSS & JS  
+- 🖼️ **Modern Layout** – Two-column contact grid, clean project cards, and footer
+- 🧠 **No dependencies** – pure HTML, CSS & JS (with FontAwesome icons)
 - 🔥 **Optimized** for speed & clarity
 
 ---
@@ -55,11 +58,10 @@ _Instantly view all active GitHub pages in a single clean dashboard_
 **Muhammad Taezeem Tariq Matta**  
 - 📍 Grade 7, SRM Welkin Higher Secondary School Sopore  
 - 💻 Coder • Ethical Hacker • Web Architect  
-- 🌐 [taezeem.me](https://taezeem.me/website.html)
+- 🌐 [taezeem.is-a.dev](https://taezeem.is-a.dev/)
 
 ---
 
 ## 📜 License
 
 This project is licensed under the **MIT License** — feel free to use, remix, and deploy it however you want.
-
