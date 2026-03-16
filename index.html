@@ -876,9 +876,9 @@
 
                 const profile = await profileRes.json();
                 const repos = await reposRes.json();
-                const pagesRepos = repos.filter(repo => repo.has_pages);
+                // Show all projects (including forks)
 
-                const data = { profile, repos: pagesRepos };
+                const data = { profile, repos: repos };
                 localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data }));
                 return data;
             } catch (error) {
@@ -913,7 +913,7 @@
             repos.forEach(repo => {
                 const date = new Date(repo.updated_at).toLocaleDateString();
                 const langColor = langColors[repo.language] || '#aaaaaa';
-                const homepage = repo.homepage || `https://${USERNAME}.github.io/${repo.name}`;
+                const homepage = repo.homepage || (repo.has_pages ? `https://${USERNAME}.github.io/${repo.name}` : null);
                 if(repo.language) languages.add(repo.language);
 
                 const card = document.createElement('div');
@@ -931,7 +931,7 @@
                         <div style="margin-left: auto">${date}</div>
                     </div>
                     <div class="repo-actions">
-                        <a href="${homepage}" target="_blank" class="repo-btn primary">Visit Site</a>
+                        ${homepage ? `<a href="${homepage}" target="_blank" class="repo-btn primary">Visit Site</a>` : ''}
                         <a href="${repo.html_url}" target="_blank" class="repo-btn secondary">Source</a>
                     </div>
                 `;
