@@ -52,7 +52,7 @@ _Auto-updating repo matrix running in production._
 
 **Muhammad Taezeem Tariq Matta**  
 *UI/UX Designer • Ethical Hacker • Web Architect*
-- 📍 Constructing digital experiences from Grade 7, SRM Welkin
+- 📍 Constructing digital experiences from Grade 8, SRM Welkin
 - 🌐 Connect in the matrix: [taezeem.is-a.dev](https://taezeem.is-a.dev/)
 
 ---
