@@ -1,11 +1,11 @@
-# ⚡ WEBMZ | Next-Gen Developer Portfolio
+# ⚡ WEBMZN | Next-Gen Developer Portfolio
 
 ![Stars](https://img.shields.io/github/stars/taezeem14/webmz?style=for-the-badge&color=00f0ff)
 ![Commits](https://img.shields.io/github/last-commit/taezeem14/webmz?style=for-the-badge&color=8a2be2)
 ![Size](https://img.shields.io/github/repo-size/taezeem14/webmz?style=for-the-badge&color=00f0ff)
 ![License](https://img.shields.io/github/license/taezeem14/webmz?style=for-the-badge&color=8a2be2)
 
-**Webmz** isn't just a portfolio—it's a hardware-accelerated, zero-dependency dashboard built to flex your GitHub projects with peak aesthetic. No bloated frameworks, just raw performance and clean code.
+**WEBMZN** isn't just a portfolio—it's a hardware-accelerated, zero-dependency dashboard built to flex your GitHub projects with peak aesthetic. No bloated frameworks, just raw performance and clean code.
 
 > 🔁 *Evolution of Webman.*
 
@@ -37,14 +37,14 @@
 
 ## 🚀 Live Environment
 
-📍 **[Initialize Webmz Live](https://taezeem14.github.io/webmz)**  
+📍 **[Initialize WEBMZN Live](https://taezeem14.github.io/webmz)**  
 _Auto-updating repo matrix running in production._
 
 ---
 
 ## 📸 Interface Preview
 
-<img src="/images/preview.png" alt="Webmz Interface" width="800" />
+<img src="/images/preview.png" alt="WEBMZN Interface" width="800" />
 
 ---
 
