@@ -1,67 +1,62 @@
-# 🧠 Webmz - Project Dashboard (v1)
+# ⚡ WEBMZ | Next-Gen Developer Portfolio
 
-![GitHub Repo stars](https://img.shields.io/github/stars/taezeem14/webmz?style=social)
-![GitHub last commit](https://img.shields.io/github/last-commit/taezeem14/webmz)
-![GitHub repo size](https://img.shields.io/github/repo-size/taezeem14/webmz)
-![MIT License](https://img.shields.io/github/license/taezeem14/webmz)
+![Stars](https://img.shields.io/github/stars/taezeem14/webmz?style=for-the-badge&color=00f0ff)
+![Commits](https://img.shields.io/github/last-commit/taezeem14/webmz?style=for-the-badge&color=8a2be2)
+![Size](https://img.shields.io/github/repo-size/taezeem14/webmz?style=for-the-badge&color=00f0ff)
+![License](https://img.shields.io/github/license/taezeem14/webmz?style=for-the-badge&color=8a2be2)
 
-**Webmz** is a sleek, high-performance developer portfolio and dashboard that automatically fetches and displays all my GitHub repositories in one place.  
-Built to be clean, fast, responsive — with a hardware-accelerated background and 100% pure Taezeem energy.
+**Webmz** isn't just a portfolio—it's a hardware-accelerated, zero-dependency dashboard built to flex your GitHub projects with peak aesthetic. No bloated frameworks, just raw performance and clean code.
 
-> 🔁 Formerly known as `Webman`.
-
----
-
-## ⚡ Features
-
-- 🎨 **Interactive UI** – 60FPS HTML5 Canvas particle background
-- 📊 **GitHub Stats** – Live GitHub Readme Stats and Top Languages integration
-- 🔄 **Auto updates** with GitHub API (no need to manually add repos)
-- 📧 **Contact Section** – AJAX-powered redirectless form using Formspree
-- 🌗 **Dark/Light theme toggle** – Seamlessly switches UI and stat cards 
-- 🚫 **Excludes forks** – only original projects shown  
-- 🖼️ **Modern Layout** – Two-column contact grid, clean project cards, and footer
-- 🧠 **No dependencies** – pure HTML, CSS & JS (with FontAwesome icons)
-- 🔥 **Optimized** for speed & clarity
+> 🔁 *Evolution of Webman.*
 
 ---
 
-## 🛠 How It Works
+## 🔥 The Stack & Features (Built Different)
 
-- Uses `https://api.github.com/users/taezeem14/repos` to fetch repositories  
-- Filters:
-  - Forks = ❌
-  - Everything else = ✅
-- Sorts projects by `updated_at` (newest at the top in v1)
-- Displays each repo as a card with:
-  - Title
-  - Link to GitHub Pages (if deployed)
-  - Last updated date
+- 🎨 **Hyper-Optimized UI** – 60FPS HTML5 Canvas particle engine (smooth AF backgrounds without tanking the DOM).
+- 📈 **Dynamic API Integration** – Auto-syncs original repos & forks via the GitHub REST API. Deploy once, it stays fresh.
+- 📊 **Custom GitHub Stats** – Live README stats pulled through a dedicated `sigma-five` instance.
+- 📬 **Frictionless Contact** – AJAX-powered Formspree integration. No redirects, just instant validation.
+- 🌗 **Adaptive Theming** – Built-in Light/Dark mode that instantly re-renders UI components and stat cards.
+- 🧠 **Zero Bloat** – 100% pure HTML, CSS, and Vanilla JS. Zero npm installs. Zero dependencies.
 
 ---
 
-## 🚀 Live Demo
+## 🛠 Under the Hood
 
-📍 **[Open Webmz Live](https://taezeem14.github.io/webmz)**  
-_Instantly view all active GitHub pages in a single clean dashboard_
+### Data Fetching Pipeline
+- Hits `https://api.github.com/users/taezeem14/repos` to strictly map the timeline of projects.
+- Ingests **all projects** (originals + forks) and categorizes them automatically.
+- Front-end caching via `localStorage` (keeps load times blazing fast and dodges API rate limiting).
+
+### Component Rendering
+- **Cards Matrix:** Dynamic CSS Grid mapping each repo with automatic GitHub Pages routing.
+- **Contact Protocol:** 2-column responsive layout loaded with FontAwesome metrics and a redirectless fetch POST request.
 
 ---
 
-## 📸 Preview
+## 🚀 Live Environment
 
-<img src="/images/preview.png" alt="Webmz Screenshot" width="800" />
+📍 **[Initialize Webmz Live](https://taezeem14.github.io/webmz)**  
+_Auto-updating repo matrix running in production._
 
 ---
 
-## 👤 Author
+## 📸 Interface Preview
+
+<img src="/images/preview.png" alt="Webmz Interface" width="800" />
+
+---
+
+## 💻 The Architect
 
 **Muhammad Taezeem Tariq Matta**  
-- 📍 Grade 7, SRM Welkin Higher Secondary School Sopore  
-- 💻 Coder • Ethical Hacker • Web Architect  
-- 🌐 [taezeem.is-a.dev](https://taezeem.is-a.dev/)
+*UI/UX Designer • Ethical Hacker • Web Architect*
+- 📍 Constructing digital experiences from Grade 7, SRM Welkin
+- 🌐 Connect in the matrix: [taezeem.is-a.dev](https://taezeem.is-a.dev/)
 
 ---
 
-## 📜 License
+## 📜 Legal / License
 
-This project is licensed under the **MIT License** — feel free to use, remix, and deploy it however you want.
+Open-sourced under the **MIT License**. Fork it, break it, fix it, deploy it.
